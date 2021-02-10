@@ -1,0 +1,18 @@
+{ "clues":
+	[
+	    {
+    	    "clue": "What is the tallest mountain on earth?",
+    	    "answer": "Mount Everest",
+    	    "long": "86.922623",
+    	    "lat": "27.986065",
+    	    "uid": 1
+	    },
+	    {
+    	    "clue": "The Nazca Lines are in which country?",
+    	    "answer": "Peru",
+    	    "long": "-14.7166638",
+            "lat": "-75.1333328",
+    	    "uid": 2
+	    }
+	]
+}

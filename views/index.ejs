@@ -1,0 +1,201 @@
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="https://d3js.org/topojson.v0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.0/proj4.js" integrity="sha512-AI3S7dMy1Pi/wQPRocZ6NearDwfaqb2BRmuJzSgFQJUOXrfSLtnMNceJPgV6arRFwJRh8Cu4snVQ3VqKrWXpkw==" crossorigin="anonymous"></script>
+    <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
+    <title>Where in the world</title>
+
+ </head>
+  <body>
+    <div class="lobby">
+      <div class="form-div-container create-game-div">
+        <div class="button">Create A New Game</div>
+        <div class="form-div hidden">
+
+            <div>Enter your name:</div><br>
+            <input type="text" id="newGameName" autocomplete='off' autofocus><br>
+            <button onclick="newGame()">Submit</button>
+
+        </div> 
+      </div>
+      
+      <div class="form-div-container join-game-div">
+        <div class="button">Join An Existing Game</div>
+        <div class="form-div hidden">
+
+          <div class="row">
+            <div>Enter game code:</div>
+            <input type="text" id="gameCode" autocomplete='off' autofocus>
+          </div>
+
+          <div class="row">
+            <div>Enter your name:</div>              
+            <input type="text" id="existingGameName" autocomplete='off' autofocus>
+          </div>
+          <button onclick="existingGame()">Submit</button>
+        </div> 
+      </div>
+    </div> 
+    
+    <div class="game hidden">
+        <div class="container">
+          <div class="status-bar">
+            WAITING FOR OTHER PLAYERS TO JOIN
+            <div class="question-bar">
+
+            </div>
+          </div>
+          <div id="game-container">
+            <div id="map"></div>
+            <div id="side-panel">
+              <div id="game-stats" class="">
+                <div>Game Code:</div>
+                <div id="game-number" class=""></div>
+                <div>Share this with anyone to join this game</div>
+                <div id="question-count" class="hidden"></div>
+              </div>
+              <div id="game-initiation">
+                <div id="rounds-count">How many questions?</div>
+                  <input type="text" id="rounds-count-input" autocomplete='off' value=5 autofocus>
+                  <button onclick="startGame()">Start Game</button> 
+              </div>
+              <div id="players-container">
+                Players in the game:
+                <div id="player-list"></div>                
+              </div>
+
+            </div>            
+          </div>
+
+        </div>
+
+    </div>
+   
+    <script type="text/javascript" src="./js/index.js"></script> 
+    <script type="text/javascript">
+      let socket = io();
+      let state = {};
+      if(localStorage.getItem("state")){
+        console.log(localStorage)
+        state = localStorage.getItem("state");
+        console.log(JSON.parse(state))
+        // if (state.status === 0 ){
+          
+        // }
+      } 
+      console.log(state)
+      
+      // let playerName;
+      
+      function existingGame(){
+        
+        let name = document.getElementById('existingGameName').value;
+        let code = document.getElementById('gameCode').value;
+        let url = "/join-game?name=" + name + "&code=" + code;
+        // playerName = name;
+        state.name = name;
+        state.code = code;
+        state.status = 1.5
+        localStorage.setItem('state', JSON.stringify(state))
+        fetch(url)
+        .then(function(res){
+          if(!res.ok){
+            console.log("error with fetch request")
+            throw Error(404);
+          }
+          return res;
+        })
+        .then(function(res){
+          let data = res.json()
+          return data
+        })
+        .then(function(data){
+          console.log(data)
+          gameLobby(data)
+        })
+        .catch(function(err){
+          console.log("error error")
+          console.log(err)
+        })
+  
+      }
+      
+      function newGame(){
+        let name = document.getElementById('newGameName').value;
+        let url = "/new-game?name=" + name;
+        playerName = name;
+        state.name = name;
+        state.status = 1;
+        localStorage.setItem('state', JSON.stringify(state))
+        console.log(state)
+        fetch(url)
+        .then(function(res){
+          if(!res.ok){
+            console.log("error with fetch request")
+            throw Error(404);
+          }
+          return res;
+        })
+        .then(function(res){
+          let data = res.json()
+          console.log("EXISTING GAME FETCH", data)
+          return data
+        })
+        .then(function(data){
+          console.log(data)
+          gameLobby(data)
+        })
+        .catch(function(err){
+          console.log("error error")
+          console.log(err)
+        })
+  
+      }
+  
+      let buttons = document.querySelectorAll(".button")
+      console.log(buttons)
+      buttons.forEach(function(button){
+        button.addEventListener("click", function(){
+          button.nextElementSibling.classList.toggle("hidden")
+        })
+
+        }); 
+      
+function gameLobby(data){
+  console.log("game loby", data)
+  document.querySelector(".lobby").classList.toggle("hidden")
+  document.querySelector(".game").classList.toggle("hidden")
+  let gameNum = document.querySelector("#game-number")
+  gameNum.innerHTML = data.code;
+  let playerList = document.querySelector("#player-list")
+  console.log(data.players[0]["name"])
+  let players = data.players
+  players.forEach(function(player){
+    let div = document.createElement('div');
+    div.innerHTML = player.name
+    div.classList = "player, " + player.name
+    playerList.appendChild(div)
+  })
+}
+
+function startGame(){
+  console.log("start game")
+  // get count of questions
+  // send to server to say game started and get 1st question
+  // get random clue from server
+  // submit answer
+  // send answer to server
+  // when all players have submitted an answer
+  // finish hame
+}
+
+function endGame(){
+  
+}
+
+
+  
+    </script>
+  </body>

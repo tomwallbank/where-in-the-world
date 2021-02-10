@@ -1,0 +1,56 @@
+.overlay {
+  fill: none;
+  pointer-events: all;
+  /*stroke: black*/
+  /*border: 1px solid black;*/
+}
+
+.svg {
+  stroke: red;
+}
+
+#map {
+  /*display: hidden;*/
+}
+
+path {
+  stroke: white;
+  stroke-width: 0.5px;
+  fill: black;
+}
+
+.hidden {
+  display: none;
+}
+
+.form-div-container {
+  background-color: lightblue;
+  border: 1px solid darkblue;
+  border-radius: 5px;
+  padding: 15px;
+  width: 250px;
+  cursor: pointer;
+  margin-bottom: 50px;
+}
+
+.form-div {
+  margin-top: 25px;
+}
+
+.button {
+  background-color: lightblue;
+  /*border: 1px solid darkblue;*/
+  /*border-radius: 5px;*/
+  padding: 15px;
+  width: 75%;
+  /*cursor: pointer;*/
+}
+
+#game-container {
+  display: grid;
+  grid-template-columns: 50% 25% 25%;
+}
+
+#side-panel {
+  background-color: red;
+}

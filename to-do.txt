@@ -1,0 +1,31 @@
+- Landing screen
+- New Game - generate code
+- Enter Username + game Code / generate new game
+- DB:
+    - Game ID
+    - Status
+    - Players
+    - Score
+    - Array of clue IDs
+
+- DB of clues
+- Add logic to ensure same clues arent sent more than once
+
+Game Logic:
+Stages:
+0 - landing page
+1 - Game Lobby
+2 - Started Game
+3 - 
+
+if local, load local storage
+    look at state and run associated function. 
+    This mean - state state needs to be loadable from scratch & not rely on prior stage.
+    NB - check current functions and what data is passed from them. May need to retrieve this from the server or from the localstorage file
+if not, landing page, set state to 0
+
+
+LocalStorage state file?
+name ?
+game ?
+game lead ?
