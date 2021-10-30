@@ -1,7 +1,11 @@
 const express = require('express');
-const app = express();
-const http = require('http').createServer(app);
+// const app = express();
+// const http = require('http').createServer(app);
 const fs = require('fs');
+// const io = require('socket.io')(http);
+
+const app = require('express')();
+const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 let gameList = [];
@@ -17,13 +21,13 @@ app.get("/", (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected');
+  
 });
 
 app.get("/game", (req, res) => {
     let status = req.query.status;
     // let name = req.query.name;
     // let host = req.query.;
-    
     
     if (status.state ===  1){
     // Send Game Lobby
@@ -32,8 +36,6 @@ app.get("/game", (req, res) => {
     } else if ( status.state === 3) {
         
     }
- 
- 
  
     console.log("new game")
     res.send();
@@ -57,7 +59,7 @@ app.get("/join-game", (req, res) => {
     res.send(game);
 })
 
-const port = process.env.PORT;
+const port = 3002;
 app.listen(port, () => console.log('Corona App listening on port', port));
 
 

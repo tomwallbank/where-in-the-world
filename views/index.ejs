@@ -9,37 +9,9 @@
 
  </head>
   <body>
-    <div class="lobby">
-      <div class="form-div-container create-game-div">
-        <div class="button">Create A New Game</div>
-        <div class="form-div hidden">
 
-            <div>Enter your name:</div><br>
-            <input type="text" id="newGameName" autocomplete='off' autofocus><br>
-            <button onclick="newGame()">Submit</button>
-
-        </div> 
-      </div>
-      
-      <div class="form-div-container join-game-div">
-        <div class="button">Join An Existing Game</div>
-        <div class="form-div hidden">
-
-          <div class="row">
-            <div>Enter game code:</div>
-            <input type="text" id="gameCode" autocomplete='off' autofocus>
-          </div>
-
-          <div class="row">
-            <div>Enter your name:</div>              
-            <input type="text" id="existingGameName" autocomplete='off' autofocus>
-          </div>
-          <button onclick="existingGame()">Submit</button>
-        </div> 
-      </div>
-    </div> 
     
-    <div class="game hidden">
+    <div class="game">
         <div class="container">
           <div class="status-bar">
             WAITING FOR OTHER PLAYERS TO JOIN
@@ -50,6 +22,37 @@
           <div id="game-container">
             <div id="map"></div>
             <div id="side-panel">
+              
+                  <div class="lobby">
+                    <div class="form-div-container create-game-div">
+                      <div class="button">Create A New Game</div>
+                      <div class="form-div hidden">
+              
+                          <div>Enter your name:</div><br>
+                          <input type="text" id="newGameName" autocomplete='off' autofocus><br>
+                          <button onclick="newGame()">Submit</button>
+              
+                      </div> 
+                    </div>
+                    
+                    <div class="form-div-container join-game-div">
+                      <div class="button">Join An Existing Game</div>
+                      <div class="form-div hidden">
+              
+                        <div class="row">
+                          <div>Enter game code:</div>
+                          <input type="text" id="gameCode" autocomplete='off' autofocus>
+                        </div>
+              
+                        <div class="row">
+                          <div>Enter your name:</div>              
+                          <input type="text" id="existingGameName" autocomplete='off' autofocus>
+                        </div>
+                        <button onclick="existingGame()">Submit</button>
+                      </div> 
+                    </div>
+                  </div> 
+                  
               <div id="game-stats" class="">
                 <div>Game Code:</div>
                 <div id="game-number" class=""></div>
@@ -87,7 +90,11 @@
       } 
       console.log(state)
       
-      // let playerName;
+      function default(){
+        clear("side-panel")
+        
+      }
+      
       
       function existingGame(){
         
@@ -195,7 +202,17 @@ function endGame(){
   
 }
 
+function round(){
+  
+}
 
+function clear(element){
+    let parent = document.getElementById(element)
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+
+}
   
     </script>
   </body>
